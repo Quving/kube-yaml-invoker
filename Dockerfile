@@ -9,7 +9,7 @@ WORKDIR /app
 ENV KUBECTL_VERSION="v1.27.4"
 
 # Install dependencies
-RUN apk add bash vim curl sudo
+RUN apk add bash vim curl sudo gettext
 
 # Install kubectl
 RUN curl -LO https://dl.k8s.io/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl && \
@@ -18,5 +18,6 @@ RUN curl -LO https://dl.k8s.io/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl 
     kubectl version --client
 
 COPY entrypoint.sh .
+COPY validate_template_rendering.sh .
 
 CMD ["bash", "entrypoint.sh"]
